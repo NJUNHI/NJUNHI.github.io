@@ -342,15 +342,15 @@ button, input { font: inherit; }
 .course-materials-home > a > span { grid-column: 1 / -1; padding-top: 13px; border-top: 1px solid var(--ink); font-size: 13px; font-weight: 800; }
 .course-materials-home > a > span b { float: right; font-size: 18px; }
 
-.start-here { border-block: 1px solid var(--ink); display: grid; grid-template-columns: .85fr 1.15fr; }
-.start-note { padding: 70px clamp(24px, 7vw, 110px); background: var(--yellow); border-right: 1px solid var(--ink); }
-.start-note p:last-child { max-width: 520px; margin-top: 24px; }
-.start-list { list-style: none; margin: 0; padding: 0; background: var(--white); }
-.start-list li { display: grid; grid-template-columns: 72px 1fr; gap: 24px; padding: 27px clamp(24px, 5vw, 72px); border-bottom: 1px solid var(--ink); }
-.start-list li:last-child { border-bottom: 0; }
-.start-list span { font: 800 24px/1.4 ui-monospace, monospace; color: var(--coral); }
-.start-list strong { font: 800 20px/1.3 "Songti SC", serif; }
-.start-list p { margin: 5px 0 0; color: var(--muted); font-size: 14px; }
+.start-here { padding: 46px clamp(24px, 7vw, 110px); border-block: 1px solid var(--ink); display: grid; grid-template-columns: minmax(220px, .6fr) minmax(0, 1.4fr); gap: clamp(28px, 5vw, 64px); align-items: center; background: var(--yellow-soft); }
+.start-note { padding: 0; }
+.start-note h2 { margin-top: 6px; font-size: clamp(32px, 3.6vw, 46px); }
+.start-note p:last-child { max-width: 420px; margin: 14px 0 0; color: #52666e; }
+.start-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.start-list li { min-height: 158px; padding: 19px; border: 1px solid var(--ink); background: var(--white); }
+.start-list span { display: block; margin-bottom: 26px; font: 800 17px/1 ui-monospace, monospace; color: var(--coral); }
+.start-list strong { font: 800 19px/1.3 "Songti SC", serif; }
+.start-list p { margin: 7px 0 0; color: var(--muted); font-size: 13px; }
 .source-note { margin: 92px clamp(24px, 7vw, 110px); padding: 30px; display: grid; grid-template-columns: 140px 1fr; gap: 34px; align-items: center; border: 1px dashed var(--ink); background: var(--white); }
 .source-stamp { padding: 12px 10px; border: 3px double var(--coral); color: var(--coral); font: 900 14px ui-monospace, monospace; letter-spacing: .12em; transform: rotate(-4deg); text-align: center; }
 .source-note h2 { margin: 0 0 4px; font: 800 24px "Songti SC", serif; }
@@ -519,9 +519,10 @@ button, input { font: inherit; }
   .course-materials-home { grid-template-columns: 1fr; }
   .course-materials-home > div { padding: 50px 22px; border-right: 0; border-bottom: 1px solid var(--ink); }
   .course-materials-home > a { padding: 32px 22px; }
-  .start-here { grid-template-columns: 1fr; }
-  .start-note { border-right: 0; border-bottom: 1px solid var(--ink); padding: 54px 22px; }
-  .start-list li { padding: 24px 22px; grid-template-columns: 48px 1fr; gap: 12px; }
+  .start-here { grid-template-columns: 1fr; gap: 24px; padding: 42px 20px; }
+  .start-list { grid-template-columns: 1fr; }
+  .start-list li { min-height: auto; padding: 18px; display: grid; grid-template-columns: 42px 1fr; gap: 12px; }
+  .start-list span { margin: 3px 0 0; }
   .source-note { grid-template-columns: 1fr; margin: 64px 20px; }
   .source-stamp { width: 140px; }
   .site-footer { grid-template-columns: 1fr; padding: 40px 22px; }

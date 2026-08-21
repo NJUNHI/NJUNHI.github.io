@@ -44,6 +44,9 @@ test("首页呈现学生 Wiki 的完整信息架构", async () => {
   assert.ok(html.indexOf('id="official"') < html.indexOf('id="map"'));
   assert.ok(html.indexOf('id="map"') < html.indexOf('id="course-materials"'));
   assert.ok(html.indexOf('id="course-materials"') < html.indexOf('id="start-title"'));
+  assert.match(html, /先看这三点/);
+  assert.match(html, /经验供参考，政策看官网/);
+  assert.doesNotMatch(html, /第一次来，先看这三件事|First things first/);
   assert.doesNotMatch(html.slice(html.indexOf('id="map"'), html.indexOf('id="course-materials"')), /href="\/wiki\/course-materials"/);
   assert.match(html.slice(html.indexOf('id="course-materials"')), /href="\/wiki\/course-materials"/);
   assert.match(html, /这是同学维护的非官方网站/);
