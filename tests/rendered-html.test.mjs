@@ -235,3 +235,9 @@ test("已移除临时预览骨架与依赖", async () => {
   await assert.rejects(access(new URL("app/_sites-preview/SkeletonPreview.tsx", projectRoot)));
   await access(new URL("public/og.png", projectRoot));
 });
+
+test("手机端主导航保留三个核心入口", async () => {
+  const css = await readFile(new URL("app/globals.css", projectRoot), "utf8");
+  assert.match(css, /\.site-header nav a:nth-child\(4\), \.official-link \{ display: none; \}/);
+  assert.doesNotMatch(css, /\.site-header nav a:nth-child\(2\), \.official-link \{ display: none; \}/);
+});
