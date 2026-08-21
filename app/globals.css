@@ -476,7 +476,7 @@ button, input { font: inherit; }
 
 @media (max-width: 760px) {
   .site-header { position: static; align-items: flex-start; padding: 14px 18px; }
-  .site-header nav { gap: 10px; overflow-x: auto; white-space: nowrap; padding-bottom: 6px; }
+  .site-header nav { gap: 8px; overflow-x: auto; white-space: nowrap; padding-bottom: 6px; }
   .site-header nav a:nth-child(4), .official-link { display: none; }
   .wordmark small { display: none; }
   .site-directory { top: 86px; right: 10px; width: calc(100vw - 20px); }

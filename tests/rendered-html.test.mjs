@@ -238,7 +238,7 @@ test("已移除临时预览骨架与依赖", async () => {
 
 test("手机端主导航保留三个核心入口", async () => {
   const css = await readFile(new URL("app/globals.css", projectRoot), "utf8");
-  assert.match(css, /\.site-header nav \{ gap: 10px; overflow-x: auto;/);
+  assert.match(css, /\.site-header nav \{ gap: 8px; overflow-x: auto;/);
   assert.match(css, /\.site-header nav a:nth-child\(4\), \.official-link \{ display: none; \}/);
   assert.doesNotMatch(css, /\.site-header nav a:nth-child\(2\), \.official-link \{ display: none; \}/);
 });
