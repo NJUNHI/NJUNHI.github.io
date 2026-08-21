@@ -242,3 +242,9 @@ test("手机端主导航保留三个核心入口", async () => {
   assert.match(css, /\.site-header nav a:nth-child\(4\), \.official-link \{ display: none; \}/);
   assert.doesNotMatch(css, /\.site-header nav a:nth-child\(2\), \.official-link \{ display: none; \}/);
 });
+
+test("首页卡片栅格保持横向对齐", async () => {
+  const css = await readFile(new URL("app/globals.css", projectRoot), "utf8");
+  assert.doesNotMatch(css, /\.official-card:nth-child\([^)]*\)\s*\{[^}]*translateY/);
+  assert.doesNotMatch(css, /\.category-card:nth-child\([^)]*\)\s*\{[^}]*translateY/);
+});
