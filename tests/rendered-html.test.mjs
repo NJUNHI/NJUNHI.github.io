@@ -44,6 +44,9 @@ test("首页呈现学生 Wiki 的完整信息架构", async () => {
   assert.ok(html.indexOf('id="official"') < html.indexOf('id="map"'));
   assert.ok(html.indexOf('id="map"') < html.indexOf('id="course-materials"'));
   assert.ok(html.indexOf('id="course-materials"') < html.indexOf('id="start-title"'));
+  assert.match(html, /先看这三点/);
+  assert.match(html, /经验供参考，政策看官网/);
+  assert.doesNotMatch(html, /第一次来，先看这三件事|First things first/);
   assert.doesNotMatch(html.slice(html.indexOf('id="map"'), html.indexOf('id="course-materials"')), /href="\/wiki\/course-materials"/);
   assert.match(html.slice(html.indexOf('id="course-materials"')), /href="\/wiki\/course-materials"/);
   assert.match(html, /这是同学维护的非官方网站/);
@@ -234,4 +237,17 @@ test("已移除临时预览骨架与依赖", async () => {
   assert.doesNotMatch(packageJson, /react-loading-skeleton|site-creator-vinext-starter/);
   await assert.rejects(access(new URL("app/_sites-preview/SkeletonPreview.tsx", projectRoot)));
   await access(new URL("public/og.png", projectRoot));
+});
+
+test("手机端主导航保留三个核心入口", async () => {
+  const css = await readFile(new URL("app/globals.css", projectRoot), "utf8");
+  assert.match(css, /\.site-header nav \{ gap: 8px; overflow-x: auto;/);
+  assert.match(css, /\.site-header nav a:nth-child\(4\), \.official-link \{ display: none; \}/);
+  assert.doesNotMatch(css, /\.site-header nav a:nth-child\(2\), \.official-link \{ display: none; \}/);
+});
+
+test("首页卡片栅格保持横向对齐", async () => {
+  const css = await readFile(new URL("app/globals.css", projectRoot), "utf8");
+  assert.doesNotMatch(css, /\.official-card:nth-child\([^)]*\)\s*\{[^}]*translateY/);
+  assert.doesNotMatch(css, /\.category-card:nth-child\([^)]*\)\s*\{[^}]*translateY/);
 });
