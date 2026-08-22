@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { ReadingNavigation } from "../../components/ReadingNavigation";
 import { SiteFooter } from "../../components/SiteFooter";
 import { SiteHeader } from "../../components/SiteHeader";
 import { allFacultyHref, facultyRosterHref, fullTimeFaculty } from "../../data/faculty";
@@ -23,6 +24,9 @@ export default async function OfficialEntryPage({ params }: PageProps) {
   const entry = getOfficialEntry(slug);
   if (!entry) notFound();
   const narrative = entry.slug === "introduction" || entry.slug === "advantages" ? officialNarratives[entry.slug] : null;
+  const entryIndex = officialOverview.findIndex((candidate) => candidate.slug === entry.slug);
+  const previousEntry = officialOverview[entryIndex - 1];
+  const nextEntry = officialOverview[entryIndex + 1];
 
   return (
     <main>
@@ -204,6 +208,12 @@ export default async function OfficialEntryPage({ params }: PageProps) {
           </div>
           <a href={entry.officialHref} target="_blank" rel="noreferrer">{entry.slug === "faculty" ? "查看完整师资名单 ↗" : "查看学院官网原页面 ↗"}</a>
         </aside>
+
+        <ReadingNavigation
+          previous={previousEntry ? { href: `/official/${previousEntry.slug}`, title: previousEntry.title, context: "学院概览" } : undefined}
+          overview={{ href: "/#official", title: "学院概览" }}
+          next={nextEntry ? { href: `/official/${nextEntry.slug}`, title: nextEntry.title, context: "学院概览" } : undefined}
+        />
       </article>
       <SiteFooter />
     </main>

@@ -212,6 +212,39 @@ test("已整理条目可进入手册内容页面并显示官方入口", async ()
   assert.doesNotMatch(html, /保留原文表达|内容来自《难喝生存手册》原稿/);
 });
 
+test("学院概览和 Wiki 正文提供上一篇、目录与下一篇导航", async () => {
+  const official = await (await render("/official/advantages")).text();
+  assert.match(official, /aria-label="文章翻页"/);
+  assert.match(official, /href="\/official\/introduction" rel="prev"/);
+  assert.match(official, /href="\/#official"/);
+  assert.match(official, /href="\/official\/history" rel="next"/);
+
+  const category = await (await render("/wiki/training")).text();
+  assert.match(category, /href="\/wiki\/resources" rel="prev"/);
+  assert.match(category, /href="\/#map"/);
+  assert.match(category, /href="\/wiki\/study" rel="next"/);
+
+  const detail = await (await render("/wiki/about/prefaces/2")).text();
+  assert.match(detail, /href="\/wiki\/about\/prefaces\/1" rel="prev"/);
+  assert.match(detail, /href="\/wiki\/about#prefaces"/);
+  assert.match(detail, /href="\/wiki\/about\/overview\/0" rel="next"/);
+});
+
+test("阅读序列首尾状态明确且正文采用增强对比度", async () => {
+  const first = await (await render("/wiki/about/prefaces/0")).text();
+  assert.match(first, /已经是第一篇/);
+  assert.match(first, /href="\/wiki\/about\/prefaces\/1" rel="next"/);
+
+  const last = await (await render("/wiki/contribute/rules/2")).text();
+  assert.match(last, /已经是最后一篇/);
+
+  const stylesheet = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  assert.doesNotMatch(stylesheet, /official-card:nth-child\([^)]*\)\s*\{[^}]*translateY/s);
+  assert.doesNotMatch(stylesheet, /category-card:nth-child\([^)]*\)\s*\{[^}]*translateY/s);
+  assert.match(stylesheet, /\.handbook-content\s*\{[^}]*color:\s*#172d37[^}]*font-weight:\s*500/s);
+  assert.match(stylesheet, /\.reading-navigation\s*\{/);
+});
+
 test("页面不再展示原稿或保留原文类说明", async () => {
   for (const pathname of ["/", "/wiki/training", "/wiki/training/courses/1"]) {
     const response = await render(pathname);
