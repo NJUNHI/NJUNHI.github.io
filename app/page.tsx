@@ -66,7 +66,6 @@ export default function Home() {
               <h2 id="official-title">先认识南赫</h2>
             </div>
           </div>
-          <p>学院官网里常用的几页，先放在这里。</p>
         </header>
 
         <div className="official-services" aria-label="常用官方入口">
@@ -101,7 +100,6 @@ export default function Home() {
               <h2 id="map-title">学生手册与经验</h2>
             </div>
           </div>
-          <p>生存手册是本站的底子。能用的先放上来，缺的以后再补。</p>
         </header>
 
         <div className="category-grid">
