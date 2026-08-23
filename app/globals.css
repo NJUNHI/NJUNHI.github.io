@@ -278,8 +278,7 @@ button, input { font: inherit; }
 .campus-contact-card dt { margin-bottom: 4px; color: var(--muted); font-size: 10px; font-weight: 800; }
 .campus-contact-card dd { color: #40565e; font-size: 13px; line-height: 1.65; }
 .official-source-box { margin-top: 28px; padding: 28px 30px; display: grid; grid-template-columns: 1fr auto; gap: 36px; align-items: center; border: 1px solid var(--ink); background: var(--yellow-soft); }
-.official-source-box h2 { margin: 4px 0 6px; font: 800 24px/1.3 "Songti SC", serif; }
-.official-source-box p:last-child { margin: 0; color: var(--muted); }
+.official-source-box h2 { margin: 4px 0 0; font: 800 24px/1.3 "Songti SC", serif; }
 .official-source-box > a { padding: 12px 18px; border: 1px solid var(--ink); background: var(--white); font-weight: 700; box-shadow: 4px 4px 0 var(--ink); white-space: nowrap; }
 
 .search-strip { padding: 36px clamp(24px, 7vw, 110px); display: grid; grid-template-columns: .65fr 1.35fr; gap: 50px; align-items: center; background: var(--blue-soft); border-bottom: 1px solid var(--ink); }
@@ -303,7 +302,7 @@ button, input { font: inherit; }
 
 .wiki-map { padding: 96px clamp(24px, 7vw, 110px) 110px; }
 .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 40px; margin-bottom: 42px; }
-.section-heading h2, .start-note h2 { margin: 5px 0 0; font: 800 clamp(34px, 4.5vw, 56px)/1.2 "Songti SC", serif; letter-spacing: -.03em; }
+.section-heading h2 { margin: 5px 0 0; font: 800 clamp(34px, 4.5vw, 56px)/1.2 "Songti SC", serif; letter-spacing: -.03em; }
 .section-heading > p { max-width: 490px; margin: 0; color: var(--muted); }
 .major-section-heading { padding: 24px 28px; align-items: center; border: 2px solid var(--ink); box-shadow: 8px 8px 0 rgba(23,42,52,.14); }
 .official-section-heading { background: var(--yellow-soft); }
@@ -342,15 +341,6 @@ button, input { font: inherit; }
 .course-materials-home > a > span { grid-column: 1 / -1; padding-top: 13px; border-top: 1px solid var(--ink); font-size: 13px; font-weight: 800; }
 .course-materials-home > a > span b { float: right; font-size: 18px; }
 
-.start-here { border-block: 1px solid var(--ink); display: grid; grid-template-columns: .85fr 1.15fr; }
-.start-note { padding: 70px clamp(24px, 7vw, 110px); background: var(--yellow); border-right: 1px solid var(--ink); }
-.start-note p:last-child { max-width: 520px; margin-top: 24px; }
-.start-list { list-style: none; margin: 0; padding: 0; background: var(--white); }
-.start-list li { display: grid; grid-template-columns: 72px 1fr; gap: 24px; padding: 27px clamp(24px, 5vw, 72px); border-bottom: 1px solid var(--ink); }
-.start-list li:last-child { border-bottom: 0; }
-.start-list span { font: 800 24px/1.4 ui-monospace, monospace; color: var(--coral); }
-.start-list strong { font: 800 20px/1.3 "Songti SC", serif; }
-.start-list p { margin: 5px 0 0; color: var(--muted); font-size: 14px; }
 .source-note { margin: 92px clamp(24px, 7vw, 110px); padding: 30px; display: grid; grid-template-columns: 140px 1fr; gap: 34px; align-items: center; border: 1px dashed var(--ink); background: var(--white); }
 .source-stamp { padding: 12px 10px; border: 3px double var(--coral); color: var(--coral); font: 900 14px ui-monospace, monospace; letter-spacing: .12em; transform: rotate(-4deg); text-align: center; }
 .source-note h2 { margin: 0 0 4px; font: 800 24px "Songti SC", serif; }
@@ -370,8 +360,7 @@ button, input { font: inherit; }
 .article-hero { min-height: 280px; padding: clamp(34px, 6vw, 70px); border: 1px solid var(--ink); display: flex; align-items: center; justify-content: space-between; gap: 40px; position: relative; overflow: hidden; }
 .article-hero::after { content: ""; width: 340px; height: 340px; position: absolute; right: -130px; top: -140px; border: 1px solid var(--ink); border-radius: 50%; opacity: .25; box-shadow: 0 0 0 38px rgba(255,255,255,.25), 0 0 0 76px rgba(255,255,255,.18); }
 .article-hero > div:first-child { position: relative; z-index: 2; }
-.article-hero h1 { margin: 12px 0 10px; font: 900 clamp(46px, 7vw, 78px)/1.05 "Songti SC", serif; letter-spacing: -.04em; }
-.article-hero > div > p:last-child { max-width: 620px; margin: 0; font-size: 18px; }
+.article-hero h1 { margin: 12px 0 0; font: 900 clamp(46px, 7vw, 78px)/1.05 "Songti SC", serif; letter-spacing: -.04em; }
 .article-symbol { width: 110px; height: 110px; flex: 0 0 auto; display: grid; place-items: center; border: 1px solid var(--ink); border-radius: 50%; background: var(--white); font: 500 58px/1 serif; position: relative; z-index: 2; box-shadow: 8px 8px 0 rgba(23,42,52,.13); }
 .article-layout { display: grid; grid-template-columns: 190px minmax(0, 1fr) 190px; gap: clamp(28px, 4vw, 62px); margin-top: 54px; align-items: start; }
 .article-index, .article-meta { position: sticky; top: 116px; }
@@ -383,15 +372,13 @@ button, input { font: inherit; }
 .article-copy > section { scroll-margin-top: 120px; margin-bottom: 72px; }
 .article-section-heading { margin-bottom: 24px; }
 .article-section-heading > span { font: 700 10px ui-monospace, monospace; letter-spacing: .12em; color: var(--coral); }
-.article-section-heading h2 { margin: 5px 0 6px; font: 800 clamp(30px, 4vw, 42px)/1.2 "Songti SC", serif; }
-.article-section-heading p { color: #344a53; margin: 0; font-weight: 500; }
+.article-section-heading h2 { margin: 5px 0 0; font: 800 clamp(30px, 4vw, 42px)/1.2 "Songti SC", serif; }
 .entry-list { border-top: 1px solid var(--ink); }
 .entry { padding: 24px 0; border-bottom: 1px solid var(--line); }
 .entry-title { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
 .entry h3 { margin: 0; font: 800 19px/1.4 "Songti SC", serif; }
 .entry-title-link { transition: color .18s ease; }
 .entry-title-link:hover { color: var(--coral); }
-.entry p { margin: 9px 0 0; color: #30464f; font-weight: 500; }
 .entry > a { display: inline-block; margin-top: 10px; color: var(--coral); font-size: 13px; font-weight: 700; border-bottom: 1px solid currentColor; }
 .status-ready, .status-todo { flex: 0 0 auto; padding: 2px 8px; border: 1px solid var(--ink); font-size: 10px; font-weight: 700; }
 .status-ready { background: var(--green-soft); }
@@ -535,9 +522,6 @@ button, input { font: inherit; }
   .course-materials-home { grid-template-columns: 1fr; }
   .course-materials-home > div { padding: 50px 22px; border-right: 0; border-bottom: 1px solid var(--ink); }
   .course-materials-home > a { padding: 32px 22px; }
-  .start-here { grid-template-columns: 1fr; }
-  .start-note { border-right: 0; border-bottom: 1px solid var(--ink); padding: 54px 22px; }
-  .start-list li { padding: 24px 22px; grid-template-columns: 48px 1fr; gap: 12px; }
   .source-note { grid-template-columns: 1fr; margin: 64px 20px; }
   .source-stamp { width: 140px; }
   .site-footer { grid-template-columns: 1fr; padding: 40px 22px; }

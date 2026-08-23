@@ -204,7 +204,6 @@ export default async function OfficialEntryPage({ params }: PageProps) {
           <div>
             <p className="mini-label">Official source</p>
             <h2>以学院官网最新信息为准</h2>
-            <p>{entry.slug === "faculty" ? "研究方向与论文只列节选，完整履历、招生信息和最新成果请看教师主页。" : "站内可以直接阅读，政策、人员和联系方式有变化时请到官网确认。"}</p>
           </div>
           <a href={entry.officialHref} target="_blank" rel="noreferrer">{entry.slug === "faculty" ? "查看完整师资名单 ↗" : "查看学院官网原页面 ↗"}</a>
         </aside>
