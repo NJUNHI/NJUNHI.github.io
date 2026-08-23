@@ -270,15 +270,15 @@ test("手册正文标题区只保留章节和标题", async () => {
 
 test("常用信息各入口只显示对应类别的表格内容", async () => {
   const cases = [
-    ["/wiki/resources/manual-major/0", "上海交通大学生存手册", "气象家园"],
-    ["/wiki/resources/manual-major/1", "气象家园", "上海交通大学生存手册"],
-    ["/wiki/resources/global/0", "南京大学本科生院交换生管理系统", "一展云图"],
-    ["/wiki/resources/global/1", "一展云图", "南哪儿留学"],
-    ["/wiki/resources/career-info/0", "清华大学地球系统科学系", "等待国家分配工作的NJUers"],
-    ["/wiki/resources/career-info/1", "等待国家分配工作的NJUers", "清华大学地球系统科学系"],
+    ["/wiki/resources/manual-major/0", "上海交通大学生存手册", "气象家园", ["862670709"]],
+    ["/wiki/resources/manual-major/1", "气象家园", "上海交通大学生存手册", ["1040472048", "256474813"]],
+    ["/wiki/resources/global/0", "南京大学本科生院交换生管理系统", "一展云图", ["981368919"]],
+    ["/wiki/resources/global/1", "一展云图", "南哪儿留学", ["2017 - 2024", "536999212"]],
+    ["/wiki/resources/career-info/0", "清华大学地球系统科学系", "等待国家分配工作的NJUers", []],
+    ["/wiki/resources/career-info/1", "等待国家分配工作的NJUers", "清华大学地球系统科学系", ["161075315"]],
   ];
 
-  for (const [pathname, includedEntry, excludedEntry] of cases) {
+  for (const [pathname, includedEntry, excludedEntry, requiredValues] of cases) {
     const response = await render(pathname);
     assert.equal(response.status, 200, `${pathname} should render`);
     const html = await response.text();
@@ -290,6 +290,24 @@ test("常用信息各入口只显示对应类别的表格内容", async () => {
     assert.match(visible, /<th[^>]*>说明<\/th>/);
     assert.match(visible, new RegExp(includedEntry));
     assert.doesNotMatch(visible, new RegExp(excludedEntry));
+    for (const value of requiredValues) assert.match(visible, new RegExp(value));
+  }
+});
+
+test("原始手册中的群号与网页生成内容保持一致", async () => {
+  const source = await readFile(new URL("../content/handbook/chapters/00-front.tex", import.meta.url), "utf8");
+  const generated = await readFile(new URL("../app/data/handbook-content.json", import.meta.url), "utf8");
+  const sourceContactNumbers = [...new Set([...source.matchAll(/\b\d{8,10}\b/g)].map((match) => match[0]))];
+
+  assert.deepEqual(sourceContactNumbers, ["862670709", "1040472048", "256474813", "981368919", "536999212", "161075315"]);
+  for (const contactNumber of sourceContactNumbers) assert.match(generated, new RegExp(contactNumber));
+  assert.match(generated, /2017 - 2024 南京大学大气科学学院就业报告/);
+});
+
+test("无效的 Wiki 地址返回 404", async () => {
+  for (const pathname of ["/wiki/not-a-category", "/wiki/study/not-a-section/0", "/wiki/study/course-strategy/99"]) {
+    const response = await render(pathname);
+    assert.equal(response.status, 404, `${pathname} should return 404`);
   }
 });
 

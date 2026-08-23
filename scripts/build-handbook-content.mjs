@@ -63,6 +63,10 @@ function preprocessLatex(input) {
   output = replaceCommand(output, "SourceListItem", (value) => `\n\n\\begin{itemize}\\item ${value}\\end{itemize}\n\n`);
   output = output.replace(/\\SourceBlankLine(?:\[[^\]]*\])?/g, "\n\n");
   output = output.replaceAll("\\RareLuo", "啰");
+  output = output.replace(
+    /(^|&)(\s*)(\d{4,})(?=[^&\n]*(?:&|\\\\))/gm,
+    (_, boundary, whitespace, digits) => `${boundary}${whitespace}\\mbox{${digits}}`,
+  );
   return output;
 }
 
