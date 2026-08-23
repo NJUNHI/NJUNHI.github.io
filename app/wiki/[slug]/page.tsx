@@ -37,7 +37,6 @@ export default async function WikiPage({ params }: PageProps) {
           <div>
             <p className="eyebrow">NHI WIKI · {category.label}</p>
             <h1>{category.title}</h1>
-            <p>{category.summary}</p>
           </div>
           <div className="article-symbol" aria-hidden="true">{category.symbol}</div>
         </header>
@@ -60,7 +59,6 @@ export default async function WikiPage({ params }: PageProps) {
                 <div className="article-section-heading">
                   <span>{section.id.toUpperCase().replaceAll("-", " ")}</span>
                   <h2>{section.title}</h2>
-                  {section.intro && <p>{section.intro}</p>}
                 </div>
                 <div className="entry-list">
                   {section.items.map((item, itemIndex) => {
@@ -73,7 +71,6 @@ export default async function WikiPage({ params }: PageProps) {
                           {item.status === "已整理" ? "阅读内容 ↗" : "待补充 ↗"}
                         </a>
                       </div>
-                      <p>{item.text}</p>
                       {item.href && <a href={item.href} target="_blank" rel="noreferrer">查看相关入口 ↗</a>}
                     </div>
                     );

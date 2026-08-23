@@ -147,19 +147,6 @@ export default function Home() {
         </section>
       )}
 
-      <section className="start-here" aria-labelledby="start-title">
-        <div className="start-note">
-          <p className="mini-label">First things first</p>
-          <h2 id="start-title">第一次来，先看这三件事</h2>
-          <p>这里不是学院通知站。攻略是同学写的，遇到政策问题还是要看官网。</p>
-        </div>
-        <ol className="start-list">
-          <li><span>01</span><div><strong>确认事实</strong><p>招生、培养方案和办事要求，优先查看学院官网及当年正式通知。</p></div></li>
-          <li><span>02</span><div><strong>阅读经验</strong><p>攻略代表作者当时的经历，不一定适用于所有年级，欢迎补充时间标签。</p></div></li>
-          <li><span>03</span><div><strong>留下记录</strong><p>哪怕只改一个错字、补一个链接，也能让后来的人少走一点弯路。</p></div></li>
-        </ol>
-      </section>
-
       <section className="source-note" aria-label="身份说明">
         <span className="source-stamp">UNOFFICIAL</span>
         <div>

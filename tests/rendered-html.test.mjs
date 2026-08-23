@@ -43,7 +43,8 @@ test("首页呈现学生 Wiki 的完整信息架构", async () => {
   assert.ok(html.indexOf('class="search-strip"') < html.indexOf('id="official"'));
   assert.ok(html.indexOf('id="official"') < html.indexOf('id="map"'));
   assert.ok(html.indexOf('id="map"') < html.indexOf('id="course-materials"'));
-  assert.ok(html.indexOf('id="course-materials"') < html.indexOf('id="start-title"'));
+  assert.ok(html.indexOf('id="course-materials"') < html.indexOf('class="source-note"'));
+  assert.doesNotMatch(html, /第一次来，先看这三件事|确认事实|阅读经验|留下记录/);
   assert.doesNotMatch(html.slice(html.indexOf('id="map"'), html.indexOf('id="course-materials"')), /href="\/wiki\/course-materials"/);
   assert.match(html.slice(html.indexOf('id="course-materials"')), /href="\/wiki\/course-materials"/);
   assert.match(html, /这是同学维护的非官方网站/);
@@ -79,6 +80,24 @@ test("Wiki 子页面可服务并显示来源与待补充状态", async () => {
   assert.match(html, /南赫概况/);
   assert.match(html, /待补充/);
   assert.match(html, /学院官网｜学院简介/);
+});
+
+test("目录页只保留标题和入口，不显示标题解释", async () => {
+  const study = await (await render("/wiki/study")).text();
+  const visibleStudy = study.slice(0, study.indexOf('<div hidden="">'));
+  assert.match(visibleStudy, /3\.4 如何应对全英文教学/);
+  assert.match(visibleStudy, /各课程语言体验/);
+  assert.match(visibleStudy, /阅读内容/);
+  assert.match(visibleStudy, /待补充/);
+  assert.doesNotMatch(visibleStudy, /选课、绩点、辅修、全英文教学、找导师和竞赛/);
+  assert.doesNotMatch(visibleStudy, /讨论专业术语、听课与阅读适应/);
+  assert.doesNotMatch(visibleStudy, /每门课上课、作业、考试和展示到底用什么语言/);
+  assert.doesNotMatch(visibleStudy, /讨论提前预习数学基础、适应住宿与建立信息渠道/);
+
+  const official = await (await render("/official/introduction")).text();
+  assert.match(official, /以学院官网最新信息为准/);
+  assert.match(official, /查看学院官网原页面/);
+  assert.doesNotMatch(official, /站内可以直接阅读，政策、人员和联系方式有变化时请到官网确认/);
 });
 
 test("九个 Wiki 分册均可正常访问", async () => {
