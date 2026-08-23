@@ -19,11 +19,14 @@ export default async function WikiPage({ params }: PageProps) {
   if (!category) notFound();
 
   const handbookCategories = categories.filter((item) => item.slug !== "course-materials");
+  const readingCategories = category.slug === "course-materials"
+    ? categories.filter((item) => item.slug === "course-materials")
+    : handbookCategories;
   const completed = category.sections.flatMap((section) => section.items).filter((item) => item.status === "已整理").length;
   const total = category.sections.flatMap((section) => section.items).length;
-  const categoryIndex = categories.findIndex((item) => item.slug === category.slug);
-  const previousCategory = categories[categoryIndex - 1];
-  const nextCategory = categories[categoryIndex + 1];
+  const categoryIndex = readingCategories.findIndex((item) => item.slug === category.slug);
+  const previousCategory = readingCategories[categoryIndex - 1];
+  const nextCategory = readingCategories[categoryIndex + 1];
 
   return (
     <main>
