@@ -412,7 +412,6 @@ button, input { font: inherit; }
 .handbook-detail-header::after { content: ""; position: absolute; width: 220px; height: 220px; right: -95px; top: -115px; border: 1px solid rgba(23,42,52,.28); border-radius: 50%; box-shadow: 0 0 0 32px rgba(255,255,255,.2), 0 0 0 64px rgba(255,255,255,.12); }
 .handbook-detail-header > * { position: relative; z-index: 1; }
 .handbook-detail-header h1 { max-width: 760px; margin: 12px 0 14px; font: 900 clamp(38px, 6vw, 68px)/1.15 "Songti SC", serif; letter-spacing: -.04em; }
-.handbook-detail-header > p:nth-of-type(2) { max-width: 680px; margin: 0 0 22px; color: #263c45; font-weight: 500; }
 .handbook-source { margin-top: 32px; }
 .official-resource-bar { margin: 18px 0 32px; padding: 14px 16px; display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; border: 1px solid var(--ink); background: var(--yellow-soft); }
 .official-resource-bar > span { margin-right: 4px; color: var(--muted); font: 700 10px ui-monospace, monospace; letter-spacing: .1em; }
