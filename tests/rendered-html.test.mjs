@@ -150,6 +150,30 @@ test("课程资料不再出现在学生手册分册导航中", async () => {
   }
 });
 
+test("课程资料与学生手册的前后翻页序列完全分离", async () => {
+  const studyCategory = await (await render("/wiki/study")).text();
+  assert.match(studyCategory, /href="\/wiki\/development" rel="next"/);
+  assert.doesNotMatch(studyCategory, /href="\/wiki\/course-materials" rel="next"/);
+
+  const competition = await (await render("/wiki/study/experience/3")).text();
+  assert.match(competition, /href="\/wiki\/development\/domestic\/0" rel="next"/);
+  assert.match(competition, /大气保研/);
+  assert.doesNotMatch(competition, /href="\/wiki\/course-materials\/notes\/0" rel="next"/);
+
+  const development = await (await render("/wiki/development/domestic/0")).text();
+  assert.match(development, /href="\/wiki\/study\/experience\/3" rel="prev"/);
+  assert.match(development, /竞赛经验/);
+
+  const firstCourseMaterial = await (await render("/wiki/course-materials/notes/0")).text();
+  assert.match(firstCourseMaterial, /已经是第一篇/);
+  assert.match(firstCourseMaterial, /href="\/wiki\/course-materials\/notes\/1" rel="next"/);
+  assert.doesNotMatch(firstCourseMaterial, /href="\/wiki\/study\/experience\/3" rel="prev"/);
+
+  const lastCourseMaterial = await (await render("/wiki/course-materials/by-course/2")).text();
+  assert.match(lastCourseMaterial, /已经是最后一篇/);
+  assert.doesNotMatch(lastCourseMaterial, /href="\/wiki\/development\/domestic\/0" rel="next"/);
+});
+
 test("学院概览条目可在站内阅读并链接官网来源", async () => {
   for (const [slug, title] of [["introduction", "学院简介"], ["history", "合作历程"], ["faculty", "师资队伍"]]) {
     const response = await render(`/official/${slug}`);

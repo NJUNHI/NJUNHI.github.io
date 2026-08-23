@@ -40,7 +40,10 @@ export default async function HandbookDetailPage({ params }: PageProps) {
     .map((heading) => ({ heading, content: handbookContent[heading] }))
     .filter((part): part is { heading: string; content: { html: string; source: string } } => Boolean(part.content));
   const isTodo = item.status !== "已整理";
-  const readingSequence = categories.flatMap((readingCategory) =>
+  const readingCategories = category.slug === "course-materials"
+    ? categories.filter((readingCategory) => readingCategory.slug === "course-materials")
+    : categories.filter((readingCategory) => readingCategory.slug !== "course-materials");
+  const readingSequence = readingCategories.flatMap((readingCategory) =>
     readingCategory.sections.flatMap((readingSection) =>
       readingSection.items.map((readingItem, readingItemIndex) => ({
         href: `/wiki/${readingCategory.slug}/${readingSection.id}/${readingItemIndex}`,
