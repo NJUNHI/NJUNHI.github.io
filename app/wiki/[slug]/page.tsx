@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { ReadingNavigation } from "../../components/ReadingNavigation";
 import { SiteFooter } from "../../components/SiteFooter";
 import { SiteHeader } from "../../components/SiteHeader";
 import { categories, getCategory } from "../../data/wiki";
@@ -20,6 +21,9 @@ export default async function WikiPage({ params }: PageProps) {
   const handbookCategories = categories.filter((item) => item.slug !== "course-materials");
   const completed = category.sections.flatMap((section) => section.items).filter((item) => item.status === "已整理").length;
   const total = category.sections.flatMap((section) => section.items).length;
+  const categoryIndex = categories.findIndex((item) => item.slug === category.slug);
+  const previousCategory = categories[categoryIndex - 1];
+  const nextCategory = categories[categoryIndex + 1];
 
   return (
     <main>
@@ -86,6 +90,12 @@ export default async function WikiPage({ params }: PageProps) {
                 <a href="/wiki/contribute">查看共建方式</a>
               </div>
             </div>
+
+            <ReadingNavigation
+              previous={previousCategory ? { href: `/wiki/${previousCategory.slug}`, title: previousCategory.title, context: "上一册" } : undefined}
+              overview={{ href: "/#map", title: "Wiki 总览" }}
+              next={nextCategory ? { href: `/wiki/${nextCategory.slug}`, title: nextCategory.title, context: "下一册" } : undefined}
+            />
           </article>
 
           <aside className="article-meta">

@@ -25,7 +25,7 @@ npm run dev
 完成修改后运行：
 
 ```bash
-npm test
+npm run check
 ```
 
 导出 GitHub Pages 静态站点：
@@ -35,6 +35,14 @@ npm run build:pages
 ```
 
 网站地址：[https://njunhi.github.io/](https://njunhi.github.io/)
+
+## 投稿与发布
+
+请从 `main` 新建分支，在分支中上传文件或修改内容，再提交 Pull Request。不要直接修改 `gh-pages`；它只保存网站发布结果。
+
+Pull Request 会自动检查代码、全部页面和站内链接。审核合并到 `main` 后，GitHub Actions 会自动构建并发布网站，不需要维护者再手动同步 `gh-pages`。
+
+网页直接使用的图片和小型 PDF 放在 `public/` 下。上传前请压缩文件，并确认来源、版权、适用学年和隐私信息。
 
 ## 内容来源与原则
 

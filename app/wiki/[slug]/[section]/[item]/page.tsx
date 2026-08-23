@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { ReadingNavigation } from "../../../../components/ReadingNavigation";
 import { SiteFooter } from "../../../../components/SiteFooter";
 import { SiteHeader } from "../../../../components/SiteHeader";
 import handbookContentJson from "../../../../data/handbook-content.json";
 import handbookSourceMapJson from "../../../../data/handbook-source-map.json";
-import { getCategory } from "../../../../data/wiki";
+import { categories, getCategory } from "../../../../data/wiki";
 
 type PageProps = { params: Promise<{ slug: string; section: string; item: string }> };
 type SourceContent = Record<string, { html: string; source: string }>;
@@ -39,6 +40,19 @@ export default async function HandbookDetailPage({ params }: PageProps) {
     .map((heading) => ({ heading, content: handbookContent[heading] }))
     .filter((part): part is { heading: string; content: { html: string; source: string } } => Boolean(part.content));
   const isTodo = item.status !== "已整理";
+  const readingSequence = categories.flatMap((readingCategory) =>
+    readingCategory.sections.flatMap((readingSection) =>
+      readingSection.items.map((readingItem, readingItemIndex) => ({
+        href: `/wiki/${readingCategory.slug}/${readingSection.id}/${readingItemIndex}`,
+        title: readingItem.title,
+        context: `${readingCategory.title} · ${readingSection.title}`,
+        sourceKey: `${readingCategory.slug}/${readingSection.id}/${readingItemIndex}`,
+      })),
+    ),
+  );
+  const readingIndex = readingSequence.findIndex((candidate) => candidate.sourceKey === sourceKey);
+  const previousEntry = readingSequence[readingIndex - 1];
+  const nextEntry = readingSequence[readingIndex + 1];
 
   return (
     <main>
@@ -104,10 +118,15 @@ export default async function HandbookDetailPage({ params }: PageProps) {
             )}
 
             <footer className="detail-footer">
-              <a href={`/wiki/${category.slug}#${section.id}`}>← 返回{category.title}</a>
               {item.href && <a href={item.href} target="_blank" rel="noreferrer">相关入口 ↗</a>}
               {!isTodo && item.handbookPage && <a href={`/handbook-2026.pdf#page=${item.handbookPage}`} target="_blank" rel="noreferrer">查看 PDF 原页 ↗</a>}
             </footer>
+
+            <ReadingNavigation
+              previous={previousEntry}
+              overview={{ href: `/wiki/${category.slug}#${section.id}`, title: `${category.title}目录` }}
+              next={nextEntry}
+            />
           </article>
         </div>
       </div>
