@@ -5,6 +5,7 @@ import { SiteFooter } from "../../../../components/SiteFooter";
 import { SiteHeader } from "../../../../components/SiteHeader";
 import handbookContentJson from "../../../../data/handbook-content.json";
 import handbookSourceMapJson from "../../../../data/handbook-source-map.json";
+import { getSourceHtml } from "../../../../data/resource-content";
 import { categories, getCategory } from "../../../../data/wiki";
 
 type PageProps = { params: Promise<{ slug: string; section: string; item: string }> };
@@ -37,7 +38,10 @@ export default async function HandbookDetailPage({ params }: PageProps) {
   const sourceKey = `${category.slug}/${section.id}/${itemIndex}`;
   const sourceHeadings = handbookSourceMap[sourceKey] ?? [];
   const sourceParts = sourceHeadings
-    .map((heading) => ({ heading, content: handbookContent[heading] }))
+    .map((heading) => {
+      const content = handbookContent[heading];
+      return content ? { heading, content: { ...content, html: getSourceHtml(sourceKey, heading, content.html) } } : { heading, content };
+    })
     .filter((part): part is { heading: string; content: { html: string; source: string } } => Boolean(part.content));
   const isTodo = item.status !== "已整理";
   const readingCategories = category.slug === "course-materials"
@@ -87,8 +91,6 @@ export default async function HandbookDetailPage({ params }: PageProps) {
             <header className={`handbook-detail-header tone-${category.tone}`}>
               <p className="eyebrow">{category.label} · {section.title}</p>
               <h1>{item.title}</h1>
-              <p>{item.text}</p>
-              <span className={isTodo ? "status-todo" : "status-ready"}>{isTodo ? "待补充" : "已整理"}</span>
             </header>
 
             <div className="official-resource-bar" aria-label="常用官方入口">

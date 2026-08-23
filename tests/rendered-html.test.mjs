@@ -255,6 +255,44 @@ test("已整理条目可进入手册内容页面并显示官方入口", async ()
   assert.doesNotMatch(html, /保留原文表达|内容来自《难喝生存手册》原稿/);
 });
 
+test("手册正文标题区只保留章节和标题", async () => {
+  const html = await (await render("/wiki/training/plan/0")).text();
+  const headerStart = html.indexOf('class="handbook-detail-header');
+  const headerEnd = html.indexOf("</header>", headerStart);
+  const header = html.slice(headerStart, headerEnd);
+
+  assert.match(header, /第二章/);
+  assert.match(header, /2\.1 培养方案/);
+  assert.match(header, /培养方案怎么读/);
+  assert.doesNotMatch(header, /先区分通识、公共、学科与专业课程/);
+  assert.doesNotMatch(header, /已整理|待补充|status-ready|status-todo/);
+});
+
+test("常用信息各入口只显示对应类别的表格内容", async () => {
+  const cases = [
+    ["/wiki/resources/manual-major/0", "上海交通大学生存手册", "气象家园"],
+    ["/wiki/resources/manual-major/1", "气象家园", "上海交通大学生存手册"],
+    ["/wiki/resources/global/0", "南京大学本科生院交换生管理系统", "一展云图"],
+    ["/wiki/resources/global/1", "一展云图", "南哪儿留学"],
+    ["/wiki/resources/career-info/0", "清华大学地球系统科学系", "等待国家分配工作的NJUers"],
+    ["/wiki/resources/career-info/1", "等待国家分配工作的NJUers", "清华大学地球系统科学系"],
+  ];
+
+  for (const [pathname, includedEntry, excludedEntry] of cases) {
+    const response = await render(pathname);
+    assert.equal(response.status, 200, `${pathname} should render`);
+    const html = await response.text();
+    const hiddenStart = html.indexOf('<div hidden="">');
+    const visible = hiddenStart === -1 ? html : html.slice(0, hiddenStart);
+    assert.match(visible, /<th[^>]*>名称<\/th>/);
+    assert.match(visible, /<th[^>]*>类型<\/th>/);
+    assert.match(visible, /<th[^>]*>链接或补充<\/th>/);
+    assert.match(visible, /<th[^>]*>说明<\/th>/);
+    assert.match(visible, new RegExp(includedEntry));
+    assert.doesNotMatch(visible, new RegExp(excludedEntry));
+  }
+});
+
 test("学院概览和 Wiki 正文提供上一篇、目录与下一篇导航", async () => {
   const official = await (await render("/official/advantages")).text();
   assert.match(official, /aria-label="文章翻页"/);
