@@ -286,6 +286,11 @@ test("阅读序列首尾状态明确且正文采用增强对比度", async () =>
   assert.doesNotMatch(stylesheet, /category-card:nth-child\([^)]*\)\s*\{[^}]*translateY/s);
   assert.match(stylesheet, /\.handbook-content\s*\{[^}]*color:\s*#172d37[^}]*font-weight:\s*500/s);
   assert.match(stylesheet, /\.reading-navigation\s*\{/);
+  assert.match(stylesheet, /\.article-index nav a\s*\{[^}]*align-items:\s*center/s);
+  assert.match(stylesheet, /\.article-index nav a\.active\s*\{[^}]*padding-inline:\s*4px/s);
+  assert.match(stylesheet, /\.detail-aside nav a\.active\s*\{[^}]*padding-inline:\s*6px/s);
+  assert.match(stylesheet, /@media \(max-width: 760px\)[\s\S]*\.article-index nav a\.active\s*\{[^}]*padding-inline:\s*12px/s);
+  assert.match(stylesheet, /@media \(max-width: 760px\)[\s\S]*\.detail-aside nav a\.active\s*\{[^}]*padding-inline:\s*12px/s);
 });
 
 test("页面不再展示原稿或保留原文类说明", async () => {
