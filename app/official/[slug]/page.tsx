@@ -34,7 +34,7 @@ export default async function OfficialEntryPage({ params }: PageProps) {
       <article className="official-article">
         <nav className="breadcrumbs" aria-label="面包屑">
           <a href="/">首页</a><span>/</span>
-          <a href="/#official">学院概览</a><span>/</span>
+          <a href="/#official">学院总览</a><span>/</span>
           <span>{entry.title}</span>
         </nav>
 
@@ -209,9 +209,9 @@ export default async function OfficialEntryPage({ params }: PageProps) {
         </aside>
 
         <ReadingNavigation
-          previous={previousEntry ? { href: `/official/${previousEntry.slug}`, title: previousEntry.title, context: "学院概览" } : undefined}
-          overview={{ href: "/#official", title: "学院概览" }}
-          next={nextEntry ? { href: `/official/${nextEntry.slug}`, title: nextEntry.title, context: "学院概览" } : undefined}
+          previous={previousEntry ? { href: `/official/${previousEntry.slug}`, title: previousEntry.title, context: "学院总览" } : undefined}
+          overview={{ href: "/#official", title: "学院总览" }}
+          next={nextEntry ? { href: `/official/${nextEntry.slug}`, title: nextEntry.title, context: "学院总览" } : undefined}
         />
       </article>
       <SiteFooter />

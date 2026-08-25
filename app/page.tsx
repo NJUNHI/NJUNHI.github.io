@@ -13,37 +13,19 @@ export default function Home() {
       <SiteHeader />
 
       <section className="hero" aria-labelledby="hero-title">
-        <div className="hero-atmosphere" aria-hidden="true" />
-        <div className="weather-grid" aria-hidden="true" />
         <div className="hero-copy">
           <p className="eyebrow"><span>学生共建</span> · 非官方</p>
           <h1 id="hero-title">
-            南赫学生 Wiki
+            南赫 Wiki
             <em>从入学，到毕业。</em>
           </h1>
-          <p className="hero-lead">
-            查学院、找课程、看经验，也欢迎你来补充。
-          </p>
           <div className="hero-actions">
-            <a className="button button-primary" href="#official">学院概览</a>
+            <a className="button button-primary" href="#official">学院总览</a>
             <a className="button button-ghost" href="#map">学生手册</a>
             <a className="button button-course" href="#course-materials">课程资料</a>
+            <a className="button button-contact" href="https://github.com/NJUNHI/.github/blob/main/profile/README.md" target="_blank" rel="noreferrer">联系我们</a>
           </div>
         </div>
-
-        <aside className="observation-card" aria-label="建站观测记录">
-          <div className="observation-topline">
-            <span>NHI / FIELD NOTE</span>
-            <span>001</span>
-          </div>
-          <div className="sun-mark" aria-hidden="true"><span /></div>
-          <dl>
-            <div><dt>建站状态</dt><dd>综合 Wiki</dd></div>
-            <div><dt>观测范围</dt><dd>学院 · 学业 · 生活</dd></div>
-            <div><dt>更新方式</dt><dd>同学共同补充</dd></div>
-          </dl>
-          <p>今日提示：不确定的信息，请以学院当年通知为准。</p>
-        </aside>
       </section>
 
       <section className="search-strip" aria-label="搜索 Wiki">
@@ -63,7 +45,7 @@ export default function Home() {
             <span className="major-section-number" aria-hidden="true">01</span>
             <div>
               <p className="mini-label">Official Information</p>
-              <h2 id="official-title">先认识南赫</h2>
+              <h2 id="official-title">学院总览</h2>
             </div>
           </div>
         </header>
@@ -84,7 +66,6 @@ export default function Home() {
               <div className="official-card-topline"><span>{item.symbol}</span><span>官方信息</span></div>
               <p>{item.label}</p>
               <h3>{item.title}</h3>
-              <div>{item.text}</div>
               <span>看看 <b>→</b></span>
             </a>
           ))}
@@ -97,7 +78,7 @@ export default function Home() {
             <span className="major-section-number" aria-hidden="true">02</span>
             <div>
               <p className="mini-label">Student Handbook</p>
-              <h2 id="map-title">学生手册与经验</h2>
+              <h2 id="map-title">学生手册</h2>
             </div>
           </div>
         </header>
@@ -115,10 +96,6 @@ export default function Home() {
               </div>
               <div className="card-symbol" aria-hidden="true">{category.symbol}</div>
               <h3>{category.title}</h3>
-              <p>{category.summary}</p>
-              <ul aria-label={`${category.title}包含内容`}>
-                {category.quickLinks.slice(0, 3).map((item) => <li key={item}>{item}</li>)}
-              </ul>
               <span className="card-link">打开这一册 <b>↗</b></span>
             </a>
           ))}
@@ -134,8 +111,7 @@ export default function Home() {
                 <p className="mini-label">Course Materials</p>
                 <h2 id="course-materials-title">课程资料</h2>
               </div>
-            </div>
-            <p>{courseMaterials.summary}</p>
+              </div>
           </div>
           <a href="/wiki/course-materials">
             <div className="course-materials-mark" aria-hidden="true">{courseMaterials.symbol}</div>

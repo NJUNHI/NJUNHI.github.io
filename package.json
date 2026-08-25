@@ -2,7 +2,7 @@
   "name": "njunhi-student-wiki",
   "version": "0.1.0",
   "private": true,
-  "description": "南赫气象站：由学生共同维护的学习、科研与生活 Wiki",
+  "description": "南赫 Wiki：由学生共同维护的学习、科研与生活 Wiki",
   "engines": {
     "node": ">=22.13.0"
   },

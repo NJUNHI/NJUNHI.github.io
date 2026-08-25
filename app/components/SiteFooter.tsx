@@ -2,8 +2,7 @@ export function SiteFooter() {
   return (
     <footer className="site-footer">
       <div>
-        <a className="footer-mark" href="/">NHI / 南赫气象站</a>
-        <p>同学写给同学看的南赫 Wiki。</p>
+        <a className="footer-mark" href="/">NHI / 南赫 Wiki</a>
       </div>
       <div className="footer-links">
         <a href="/wiki/contribute">参与共建</a>

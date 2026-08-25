@@ -46,7 +46,7 @@ export default async function WikiPage({ params }: PageProps) {
 
         <div className="article-layout">
           <aside className="article-index" aria-label="Wiki 分类">
-            <p className="mini-label">学生手册与经验</p>
+            <p className="mini-label">学生手册</p>
             <nav>
               {handbookCategories.map((item, index) => (
                 <a className={item.slug === category.slug ? "active" : ""} href={`/wiki/${item.slug}`} key={item.slug}>
