@@ -195,6 +195,24 @@ test("学院概览条目可在站内阅读并链接官网来源", async () => {
   }
 });
 
+test("学院总览正文页头保留编号和大标题并删除解释文字", async () => {
+  for (const [slug, title] of [
+    ["introduction", "学院简介"],
+    ["advantages", "办学优势"],
+    ["history", "合作历程"],
+    ["faculty", "师资队伍"],
+    ["administration", "管理队伍"],
+    ["contact", "联系我们"],
+  ]) {
+    const html = await (await render(`/official/${slug}`)).text();
+    const hero = html.match(/<header class="official-article-hero">([\s\S]*?)<\/header>/)?.[1] ?? "";
+    assert.match(hero, /<p class="eyebrow">OFFICIAL OVERVIEW · <!-- -->\d{2}<\/p>/);
+    assert.match(hero, new RegExp(`<h1>${title}</h1>`));
+    assert.match(hero, /<span aria-hidden="true">\d{2}<\/span>/);
+    assert.equal((hero.match(/<p/g) ?? []).length, 1);
+  }
+});
+
 test("学院简介、办学优势、合作历程、管理队伍和联系信息均有站内正文", async () => {
   const introduction = await (await render("/official/introduction")).text();
   assert.match(introduction, /学院概况/);
