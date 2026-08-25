@@ -22,9 +22,10 @@ test("首页呈现学生 Wiki 的完整信息架构", async () => {
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /<title>南赫气象站｜学生共建 Wiki<\/title>/);
-  assert.match(html, /先认识南赫/);
-  assert.match(html, /学生手册与经验/);
+  const visibleHome = html.slice(html.indexOf("</head>"), html.indexOf("</main>"));
+  assert.match(html, /<title>南赫 Wiki｜学生共建<\/title>/);
+  assert.match(html, /学院总览/);
+  assert.match(html, /学生手册/);
   assert.match(html, /手册导览/);
   assert.match(html, /培养体系/);
   assert.match(html, /课程资料/);
@@ -34,6 +35,7 @@ test("首页呈现学生 Wiki 的完整信息架构", async () => {
   assert.match(html, /师资队伍/);
   assert.match(html, /南京大学网上办事服务大厅/);
   assert.match(html, /class="button button-course" href="#course-materials">课程资料/);
+  assert.match(html, /class="button button-contact" href="https:\/\/github\.com\/NJUNHI\/\.github\/blob\/main\/profile\/README\.md"[^>]*>联系我们/);
   assert.equal((html.match(/class="major-section-number"/g) ?? []).length, 3);
   assert.match(html, /major-section-heading official-section-heading/);
   assert.match(html, /major-section-heading student-section-heading/);
@@ -45,6 +47,13 @@ test("首页呈现学生 Wiki 的完整信息架构", async () => {
   assert.ok(html.indexOf('id="map"') < html.indexOf('id="course-materials"'));
   assert.ok(html.indexOf('id="course-materials"') < html.indexOf('class="source-note"'));
   assert.doesNotMatch(html, /第一次来，先看这三件事|确认事实|阅读经验|留下记录/);
+  assert.doesNotMatch(visibleHome, /查学院、找课程、看经验，也欢迎你来补充/);
+  assert.doesNotMatch(visibleHome, /南赫是什么、怎么培养、主要在哪里上课/);
+  assert.doesNotMatch(visibleHome, /序言、免责声明和南赫概况/);
+  assert.doesNotMatch(visibleHome, /学院 · 学业 · 生活/);
+  assert.doesNotMatch(visibleHome, /南赫气象站|南赫学生 Wiki/);
+  assert.match(visibleHome, /学院信息、通知公告与官方政策/);
+  assert.match(visibleHome, /校内办事事项与在线服务入口/);
   assert.doesNotMatch(html.slice(html.indexOf('id="map"'), html.indexOf('id="course-materials"')), /href="\/wiki\/course-materials"/);
   assert.match(html.slice(html.indexOf('id="course-materials"')), /href="\/wiki\/course-materials"/);
   assert.match(html, /这是同学维护的非官方网站/);
@@ -54,11 +63,12 @@ test("首页呈现学生 Wiki 的完整信息架构", async () => {
 
 test("全站页面提供分组清楚的侧边目录总览", async () => {
   const home = await (await render("/")).text();
-  assert.match(home, /class="site-directory"/);
+  assert.match(home, /class="site-guide"/);
+  assert.match(home, /class="site-directory site-directory-mobile"/);
   assert.match(home, /目录总览/);
-  assert.match(home, /全站目录/);
-  assert.match(home, /学院概览/);
-  assert.match(home, /学生手册与经验/);
+  assert.match(home, /aria-label="全站目录"/);
+  assert.match(home, /学院总览/);
+  assert.match(home, /学生手册/);
   assert.match(home, /课程资料总览/);
   assert.match(home, /href="\/official\/faculty"/);
   assert.match(home, /href="\/wiki\/study"/);
@@ -75,7 +85,7 @@ test("Wiki 子页面可服务并显示来源与待补充状态", async () => {
   const response = await render("/wiki/about");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /<title>手册导览｜南赫气象站<\/title>/);
+  assert.match(html, /<title>手册导览｜南赫 Wiki<\/title>/);
   assert.match(html, /2025 版序/);
   assert.match(html, /南赫概况/);
   assert.match(html, /待补充/);
@@ -117,7 +127,7 @@ test("九个 Wiki 分册均可正常访问", async () => {
     const response = await render(`/wiki/${slug}`);
     assert.equal(response.status, 200, `${slug} should render`);
     const html = await response.text();
-    assert.match(html, new RegExp(`<title>${title}｜南赫气象站</title>`));
+    assert.match(html, new RegExp(`<title>${title}｜南赫 Wiki</title>`));
   }
 });
 
@@ -145,7 +155,7 @@ test("课程资料不再出现在学生手册分册导航中", async () => {
     const navStart = html.indexOf('class="article-index"');
     const navEnd = html.indexOf("</aside>", navStart);
     const handbookNav = html.slice(navStart, navEnd);
-    assert.match(handbookNav, /学生手册与经验/);
+    assert.match(handbookNav, /学生手册/);
     assert.doesNotMatch(handbookNav, /href="\/wiki\/course-materials"/);
   }
 });
@@ -179,7 +189,7 @@ test("学院概览条目可在站内阅读并链接官网来源", async () => {
     const response = await render(`/official/${slug}`);
     assert.equal(response.status, 200);
     const html = await response.text();
-    assert.match(html, new RegExp(`<title>${title}｜南赫气象站</title>`));
+    assert.match(html, new RegExp(`<title>${title}｜南赫 Wiki</title>`));
     assert.match(html, /以学院官网最新信息为准/);
     assert.match(html, /查看学院官网原页面|查看完整师资名单/);
   }
@@ -247,7 +257,7 @@ test("已整理条目可进入手册内容页面并显示官方入口", async ()
   const response = await render("/wiki/study/course-strategy/0");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /<title>3.1 选课策略与原则｜南赫气象站<\/title>/);
+  assert.match(html, /<title>3.1 选课策略与原则｜南赫 Wiki<\/title>/);
   assert.match(html, /通读南哪助手新生问答/);
   assert.match(html, /学院官方网站/);
   assert.match(html, /南京大学网上办事服务大厅/);
