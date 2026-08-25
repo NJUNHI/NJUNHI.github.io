@@ -42,7 +42,6 @@ export default async function OfficialEntryPage({ params }: PageProps) {
           <div>
             <p className="eyebrow">OFFICIAL OVERVIEW · {entry.symbol}</p>
             <h1>{entry.title}</h1>
-            <p>{entry.lead}</p>
           </div>
           <span aria-hidden="true">{entry.symbol}</span>
         </header>
