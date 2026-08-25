@@ -244,7 +244,16 @@ test("师资页列出专任教师、研究方向、代表论文和主页", async
   assert.match(html, /研究方向/);
   assert.match(html, /代表论文（节选）/);
   assert.match(html, /Climate Simulations and Ice Core Data Highlight the Holocene Conundrum over Tropical Mountains/);
+  assert.match(html, /The impact of aerosols on photolysis frequencies and ozone production in Beijing during the 4-year period 2012–2015/);
+  const publicationSections = [...html.matchAll(/<div class="faculty-card-section faculty-publications">([\s\S]*?)<\/div>/g)];
+  assert.equal(publicationSections.length, 17);
+  for (const [, section] of publicationSections) {
+    assert.equal((section.match(/href="https:\/\/doi\.org\//g) ?? []).length, 2);
+    assert.doesNotMatch(section, /<li><span>/);
+  }
+  assert.equal((html.match(/href="https:\/\/doi\.org\//g) ?? []).length, 34);
   assert.match(html, /href="https:\/\/nh\.nju\.edu\.cn\/info\/1471\/8281\.htm"/);
+  assert.match(html, /href="https:\/\/www\.dezhengsun\.org\/index-original"/);
   assert.match(html, /全部南赫教师/);
 });
 
