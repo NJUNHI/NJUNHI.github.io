@@ -2,7 +2,7 @@ export type FacultyPublication = {
   title: string;
   venue: string;
   year: string;
-  href?: string;
+  href: string;
 };
 
 export type FacultyMember = {
@@ -24,8 +24,8 @@ export const fullTimeFaculty: FacultyMember[] = [
     title: "助理教授",
     directions: ["地球系统模拟", "气候动力学", "气候信息融合与稳定水同位素"],
     publications: [
-      { title: "Climate Simulations and Ice Core Data Highlight the Holocene Conundrum over Tropical Mountains", venue: "Communications Earth & Environment", year: "2025" },
-      { title: "Model Sensitivity to Insolation Forcing and Uncertainties in Holocene Temperature Simulations", venue: "Paleoceanography and Paleoclimatology", year: "2025" },
+      { title: "Climate Simulations and Ice Core Data Highlight the Holocene Conundrum over Tropical Mountains", venue: "Communications Earth & Environment", year: "2025", href: "https://doi.org/10.1038/s43247-025-02188-2" },
+      { title: "Model Sensitivity to Insolation Forcing and Uncertainties in Holocene Temperature Simulations", venue: "Paleoceanography and Paleoclimatology", year: "2025", href: "https://doi.org/10.1029/2024PA004958" },
     ],
     profileHref: "https://nh.nju.edu.cn/info/1471/8281.htm",
   },
@@ -35,8 +35,8 @@ export const fullTimeFaculty: FacultyMember[] = [
     title: "助理教授、博士生导师",
     directions: ["登陆热带气旋动力机制", "高分辨率数值模拟", "近地面风场与灾害风险"],
     publications: [
-      { title: "A Model for the Tropical Cyclone Wind Field Response to Idealized Landfall", venue: "Journal of the Atmospheric Sciences", year: "2023" },
-      { title: "A New Framework for Evaluating Model Simulated Inland Tropical Cyclone Wind Fields", venue: "Geophysical Research Letters", year: "2023" },
+      { title: "A Model for the Tropical Cyclone Wind Field Response to Idealized Landfall", venue: "Journal of the Atmospheric Sciences", year: "2023", href: "https://doi.org/10.1175/JAS-D-22-0156.1" },
+      { title: "A New Framework for Evaluating Model Simulated Inland Tropical Cyclone Wind Fields", venue: "Geophysical Research Letters", year: "2023", href: "https://doi.org/10.1029/2023GL104587" },
     ],
     profileHref: "https://nh.nju.edu.cn/info/1471/7761.htm",
   },
@@ -90,10 +90,10 @@ export const fullTimeFaculty: FacultyMember[] = [
     title: "教授",
     directions: ["气候系统稳定性", "ENSO 非线性动力学", "热带海洋—大气耦合", "年代际气候变率"],
     publications: [
-      { title: "Dynamic ocean-atmosphere coupling: a thermostat for the tropics", venue: "Science", year: "1996" },
-      { title: "El Niño: a coupled response to radiative heating?", venue: "Geophysical Research Letters", year: "1997" },
+      { title: "Dynamic ocean-atmosphere coupling: a thermostat for the tropics", venue: "Science", year: "1996", href: "https://doi.org/10.1126/science.272.5265.1148" },
+      { title: "El Niño: a coupled response to radiative heating?", venue: "Geophysical Research Letters", year: "1997", href: "https://doi.org/10.1029/97GL01960" },
     ],
-    profileHref: "https://dezhengsun.org/index-original",
+    profileHref: "https://www.dezhengsun.org/index-original",
   },
   {
     name: "王海鲲",
@@ -101,8 +101,8 @@ export const fullTimeFaculty: FacultyMember[] = [
     title: "教授",
     directions: ["人为源大气排放及社会经济驱动", "大气环境的生态健康影响", "气候环境政策费用效益"],
     publications: [
-      { title: "Air quality improvements can strengthen China’s food security", venue: "Nature Food", year: "2024" },
-      { title: "Health benefits of on-road transportation pollution control programs in China", venue: "Proceedings of the National Academy of Sciences", year: "2020" },
+      { title: "Air quality improvements can strengthen China’s food security", venue: "Nature Food", year: "2024", href: "https://doi.org/10.1038/s43016-023-00882-y" },
+      { title: "Health benefits of on-road transportation pollution control programs in China", venue: "Proceedings of the National Academy of Sciences", year: "2020", href: "https://doi.org/10.1073/pnas.1921271117" },
     ],
     profileHref: "https://as.nju.edu.cn/c3/69/c11339a443241/page.htm",
   },
@@ -112,8 +112,8 @@ export const fullTimeFaculty: FacultyMember[] = [
     title: "副教授",
     directions: ["大气臭氧污染化学模拟", "O₃ 与 PM₂.₅ 协同控制", "大气氧化性", "气候变化与臭氧污染"],
     publications: [
-      { title: "Ozone pollution mitigation strategy informed by long-term trends of atmospheric oxidation capacity", venue: "Nature Geoscience", year: "2024" },
-      { title: "The impact of aerosols on photolysis frequencies and ozone production in Beijing during 2012–2015", venue: "Atmospheric Chemistry and Physics", year: "2019" },
+      { title: "Ozone pollution mitigation strategy informed by long-term trends of atmospheric oxidation capacity", venue: "Nature Geoscience", year: "2024", href: "https://doi.org/10.1038/s41561-023-01334-9" },
+      { title: "The impact of aerosols on photolysis frequencies and ozone production in Beijing during the 4-year period 2012–2015", venue: "Atmospheric Chemistry and Physics", year: "2019", href: "https://doi.org/10.5194/acp-19-9413-2019" },
     ],
     profileHref: "https://nh.nju.edu.cn/info/1471/7751.htm",
   },
@@ -167,8 +167,8 @@ export const fullTimeFaculty: FacultyMember[] = [
     title: "助理教授",
     directions: ["极端天气气候事件", "大气湿对流", "热带气旋演变与预报"],
     publications: [
-      { title: "The Control of Tropical Cyclone Wind Structure on Inner and Outer Rainband Formation: A Balanced Dynamics Perspective", venue: "Journal of the Atmospheric Sciences", year: "2026" },
-      { title: "Internal Oscillations of Tropical Mesoscale Convective Disturbances", venue: "Journal of the Atmospheric Sciences", year: "2025" },
+      { title: "The Control of Tropical Cyclone Wind Structure on Inner and Outer Rainband Formation: A Balanced Dynamics Perspective", venue: "Journal of the Atmospheric Sciences", year: "2026", href: "https://doi.org/10.1175/JAS-D-25-0185.1" },
+      { title: "Internal Oscillations of Tropical Mesoscale Convective Disturbances", venue: "Journal of the Atmospheric Sciences", year: "2025", href: "https://doi.org/10.1175/JAS-D-24-0282.1" },
     ],
     profileHref: "https://nh.nju.edu.cn/info/1471/7791.htm",
   },
@@ -200,8 +200,8 @@ export const fullTimeFaculty: FacultyMember[] = [
     title: "助理教授、博士生导师",
     directions: ["大气污染物排放清单", "气溶胶数值模拟", "污染来源解析", "PM₂.₅ 毒性与健康效应"],
     publications: [
-      { title: "Control of Toxicity of Fine Particulate Matter Emissions in China", venue: "Nature", year: "2025" },
-      { title: "Achieving health-oriented air pollution control requires integrating unequal toxicities of industrial particles", venue: "Nature Communications", year: "2023" },
+      { title: "Control of Toxicity of Fine Particulate Matter Emissions in China", venue: "Nature", year: "2025", href: "https://doi.org/10.1038/s41586-025-09158-w" },
+      { title: "Achieving health-oriented air pollution control requires integrating unequal toxicities of industrial particles", venue: "Nature Communications", year: "2023", href: "https://doi.org/10.1038/s41467-023-42089-6" },
     ],
     profileHref: "https://nh.nju.edu.cn/info/1471/7681.htm",
   },
